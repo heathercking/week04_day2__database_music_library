@@ -25,3 +25,13 @@ def find_artist(id):
     if result is not None:
         artist = Artist(result["first_name"], result["last_name"], result["id"])
     return artist
+
+def find_all_artists():
+    artists = []
+    sql = "SELECT * FROM artists"
+    results = run_sql(sql)
+
+    for row in results:
+        artist = Artist(row["first_name"], row["last_name"], row["id"])
+        artists.append(artist)
+    return artists

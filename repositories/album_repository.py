@@ -14,9 +14,11 @@ def save(album):
     album.id = id
     return album
 
+
 def delete_all():
     sql = "DELETE FROM albums"
     run_sql(sql)
+
 
 def find_album(id):
     album = None
@@ -28,3 +30,16 @@ def find_album(id):
         artist = artist_repository.find_artist(result["artist_id"])
         album = Album(result["title"], result["genre"], artist, result["id"])
     return album
+
+
+def find_all_albums():
+    albums = []
+
+    sql = "SELECT * FROM albums"
+    results = run_sql(sql)
+
+    for row in results:
+        artist = artist_repository.find_artist(row["artist_id"])
+        album = Album(row["title"], row["genre"], artist, row["id"])
+        albums.append(album)
+    return albums
