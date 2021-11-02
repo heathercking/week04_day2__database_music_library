@@ -20,8 +20,11 @@ artist_repository.save(artist_2)
 album_1 = Album("I Walk The Line", "Rockabilly", artist_1)
 album_repository.save(album_1)
 
-new_artist = artist_repository.find_artist(artist_1.id)
-print(new_artist.first_name)
+found_artist = artist_repository.find_artist(artist_1.id)
+print(found_artist.first_name)
+
+found_album = album_repository.find_album(album_1.id)
+print(found_album.__dict__)
 
 
 pdb.set_trace()

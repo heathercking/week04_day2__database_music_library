@@ -25,6 +25,6 @@ def find_album(id):
     result = run_sql(sql, values)[0]
 
     if result is not None:
-        artist = artist_repository.select(result["artist_id"])
+        artist = artist_repository.find_artist(result["artist_id"])
         album = Album(result["title"], result["genre"], artist, result["id"])
     return album
