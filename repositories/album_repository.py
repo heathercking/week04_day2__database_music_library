@@ -43,3 +43,19 @@ def find_all_albums():
         album = Album(row["title"], row["genre"], artist, row["id"])
         albums.append(album)
     return albums
+
+
+def find_albums_by_artist(id):
+    albums = []
+
+    sql = "SELECT * FROM albums WHERE id = %s"
+    values = [id]
+    results = run_sql(sql, values)
+
+    for row in results:
+        artist = artist_repository.find_artist(row["artist_id"])
+        album = Album(row["title"], row["genre"], artist, row["id"])
+        albums.append(album)
+    return albums
+
+

@@ -1,4 +1,4 @@
-from pdb import run
+from pdb import run, runcall
 from db.run_sql import run_sql
 
 from models.artist import Artist
@@ -12,9 +12,11 @@ def save(artist):
     artist.id = id
     return artist
 
+
 def delete_all():
     sql = "DELETE FROM artists"
     run_sql(sql)
+
 
 def find_artist(id):
     artist = None
@@ -26,6 +28,7 @@ def find_artist(id):
         artist = Artist(result["first_name"], result["last_name"], result["id"])
     return artist
 
+
 def find_all_artists():
     artists = []
     sql = "SELECT * FROM artists"
@@ -35,3 +38,9 @@ def find_all_artists():
         artist = Artist(row["first_name"], row["last_name"], row["id"])
         artists.append(artist)
     return artists
+
+
+def edit_artist(artist):
+    sql = "UPDATE artists SET (first_name, last_name) = (%s, %s) WHERE id = %s"
+    values = [artist.first_name, artist.last_name, artist.id]
+    run_sql(sql, values)
