@@ -20,6 +20,13 @@ def delete_all():
     run_sql(sql)
 
 
+def delete_album(id):
+    sql = "DELETE FROM albums WHERE id = %s"
+    values = [id]
+    run_sql(sql, values)
+
+
+
 def find_album(id):
     album = None
     sql = "SELECT * FROM albums WHERE id = %s"
@@ -45,17 +52,9 @@ def find_all_albums():
     return albums
 
 
-def find_albums_by_artist(id):
-    albums = []
-
-    sql = "SELECT * FROM albums WHERE id = %s"
-    values = [id]
-    results = run_sql(sql, values)
-
-    for row in results:
-        artist = artist_repository.find_artist(row["artist_id"])
-        album = Album(row["title"], row["genre"], artist, row["id"])
-        albums.append(album)
-    return albums
+def edit_album(album):
+    sql = "UPDATE albums SET (title, genre, artist_id) = (%s, %s, %s) WHERE id = %s"
+    values = [album.title, album.genre, album.artist.id, album.id]
+    run_sql(sql, values)
 
 
